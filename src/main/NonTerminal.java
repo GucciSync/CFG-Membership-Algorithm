@@ -14,15 +14,15 @@ public class NonTerminal {
         productionList = new CopyOnWriteArrayList<>();
     }
 
-    public boolean addProduction(String expression) {
+    public void addProduction(String expression) {
         for(Production existing : productionList)
             if(existing.getExpression().equals(expression))
-                return false;
-        return productionList.add(new Production(this, expression));
+                return;
+        productionList.add(new Production(this, expression));
     }
 
-    public boolean removeProduction(Production production) {
-        return productionList.remove(production);
+    public void removeProduction(Production production) {
+        productionList.remove(production);
     }
 
     public char getSymbol() {
@@ -34,9 +34,9 @@ public class NonTerminal {
     }
 
     public String productionsToString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for(Production production : productionList)
-            result += production.getExpression() + "|";
+            result.append(production.getExpression()).append("|");
         return result.substring(0, result.length() - 1);
     }
 

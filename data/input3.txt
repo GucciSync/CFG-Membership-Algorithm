@@ -1,0 +1,6 @@
+S -> AB|AX|BX
+X -> ZY
+Y -> BB
+Z -> AB|AX
+A -> a
+B -> b

@@ -2,7 +2,6 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +9,7 @@ public class Main {
     public static final char LAMBDA = 'λ', ARROW = '→';
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("input.txt");
+        File file = new File("./data/input.txt");
         Scanner scanner = new Scanner(file);
 
         CFG cfg = new CFG();
@@ -29,8 +28,24 @@ public class Main {
             }
         }
         System.out.println("Original: \n" + cfg.toString());
-        cfg.simplify();
-        System.out.println("Simplified: \n" + cfg.toString());
-        System.out.print("Symbols: " + Arrays.toString(cfg.getSymbols()));
+        cfg.convertToCNF('Z');
+        System.out.println("CNF Form: \n" + cfg.toString());
+
+        String input;
+        scanner = new Scanner(System.in);
+
+        while(true) {
+
+            System.out.print("Enter a string to check membership (or 'exit'): ");
+            input = scanner.nextLine();
+
+            if(input.toLowerCase().contains("exit") || input.length() == 0) {
+                System.out.println("Bye!");
+                break;
+            }
+
+            System.out.println("-> Is \"" + input + "\" a member of the given language?: " + (cfg.runCYK(input) ? "Yes" : "No") + "\n");
+
+        }
     }
 }
