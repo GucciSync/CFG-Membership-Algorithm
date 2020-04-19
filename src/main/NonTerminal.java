@@ -11,12 +11,12 @@ public class NonTerminal {
 
     public NonTerminal(char symbol) {
         this.symbol = symbol;
-        productionList = new CopyOnWriteArrayList<>();
+        productionList = new CopyOnWriteArrayList<>(); // CopyOnWriteArrayList so we can modify while iterating
     }
 
     public void addProduction(String expression) {
         for(Production existing : productionList)
-            if(existing.getExpression().equals(expression))
+            if(existing.getExpression().equals(expression)) // can't be a duplicate
                 return;
         productionList.add(new Production(this, expression));
     }
